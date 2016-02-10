@@ -1,0 +1,24 @@
+    $green: #708030;
+     $pink: #9c67d1;
+
+$sansSerif: Arial, Helvetica, sans-serif;
+    $serif: Georgia, Times, 'Times New Roman', serif;
+
+@import 'reset';
+@import 'forms';
+
+body {
+    background: white;
+    font-family: $sansSerif;
+    font-size: 1rem;
+    display: flex;
+    flex-wrap: wrap;
+    color: lighten( black, 30% );
+}
+
+@import 'header';
+@import 'aside';
+@import 'main';
+@import 'catalog';
+@import 'item';
+@import 'footer';

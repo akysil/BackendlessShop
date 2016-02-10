@@ -1,0 +1,63 @@
+main {
+    flex: 3;
+    padding: 0 calc(50% - 500px - 1rem) 1rem 1.3rem;
+    margin-right: 1rem;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+    align-content: flex-start;
+}
+main > * {
+    margin-bottom: 2rem;
+    display: block;
+}
+main nav[breadcrumbs] {
+    flex: 2;
+    color: $green;
+    display: flex;
+    align-items: stretch;
+    align-content: center;
+}
+main nav[breadcrumbs] * {
+    text-transform: uppercase;
+    font-size: 0.7rem;
+    letter-spacing: 2px;
+    margin: 0 0.5rem 0 0;
+}
+main nav[breadcrumbs] i {
+    color: lighten( black, 75% );
+}
+main nav[breadcrumbs] a {
+    text-decoration: none;
+    color: lighten( black, 75% );
+    border-bottom: 1px solid transparent;
+}
+main nav[breadcrumbs] a:hover {
+    border-bottom: 1px solid $green;
+    color: $green;
+}
+
+main search {
+    flex: 1;
+    text-align: right;
+}
+main search form,
+main search input[type=search] {
+    width: 100%;
+    min-width: 200px;
+    padding-right: 1.9rem;
+}
+
+main content {
+    flex: 1 100%;
+}
+main content h1 {
+    color: lighten( black, 50% );
+    font-size: 1.3rem;
+    font-weight: thin;
+    font-family: $serif;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin: 0 0 1.5rem 0;
+}

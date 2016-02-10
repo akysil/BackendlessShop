@@ -1,0 +1,41 @@
+main article {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+main article dl {
+    flex: 1 30%;
+    border: 0px solid red;
+    font-family: $serif;
+}
+main article dt {
+    font-size: 0.7rem;
+    color: lighten( black, 50% );
+    text-transform: uppercase;
+    margin: 0 0 0.5rem 0;
+}
+main article dt:after {
+    content: ':';
+}
+main article dd {
+    font-size: 1.3rem;
+    color: lighten( black, 0% );
+    margin: 0 0 1.5rem 1rem;
+}
+main article dl input {
+    width: 5.2rem;
+    text-align: right;
+    margin-top: 0.3rem
+}
+
+main article figure {
+    flex: 1 70%;
+}
+main article figure img {
+    width: 100%;
+}
+
+main article section {
+    margin: 0 0 2rem 0;
+    line-height: 1.2rem;
+}

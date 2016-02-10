@@ -1,0 +1,26 @@
+main catalog {
+    display: block;
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: space-between;
+}
+main catalog figure {
+    width: 150px;
+    overflow: hidden;
+    text-align: center;
+    font-size: 0.78rem;
+    line-height: 1.1rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin: 0 0 2rem 0;
+}
+main catalog figure img {
+    height: 130px;
+}
+main catalog figure a {
+    text-decoration: none;
+    color: lighten( black, 20% );
+}
+main catalog figure a:hover {
+    color: $green;
+}

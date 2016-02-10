@@ -1,0 +1,9 @@
+<a href="#/">home</a>
+
+<form ng-submit="login.do(login.name, login.password)">
+    <input type="text" ng-model="login.name">
+    <input type="password" ng-model="login.password">
+    <input type="submit">
+</form>
+
+<div ng-click="login.checkIfValid(login.token)">{{login.token}}</div>
