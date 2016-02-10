@@ -38,9 +38,11 @@ footer contacts a {
     color: $green;
 }
 footer copyright  {
+    font-family: $serif;
     display: block;
-    line-height: 0.9rem;
+    line-height: 1.1rem;
     padding: 0 6rem;
     font-size: 0.75rem;
-    color: lighten( black, 60% );
+    letter-spacing: calc(1px / 2.1);
+    color: lighten( black, 50% );
 }

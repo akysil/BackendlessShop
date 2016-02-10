@@ -21,19 +21,15 @@
         }
     }
 
-    headerController.$inject = ['$scope', '$location'];
+    headerController.$inject = ['$scope', 'Storage'];
 
-    function headerController($scope, $location) {
+    function headerController($scope, Storage) {
         
         // as controllerAs
         /* jshint validthis: true */
         var header = this;
-        
 
-        //if ($location.path().indexOf('header')) header.show = true;
-        
-
-        //
+        header.nav = Storage.staticPages;
 
         
     }

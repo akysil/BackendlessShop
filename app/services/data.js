@@ -12,7 +12,8 @@
         var baseUrl = SETTINGS.API_DATA;
 
         var methods = {
-            get: get,
+            //get: get,
+            get: function(table) { return $http.get(baseUrl + table); },
             add: add,
             update: update,
             remove: remove
@@ -22,7 +23,7 @@
 
         return methods;
 
-        // Functions //////////////////////////////////////////////////////////
+        // --------------------------------------------------------------------
 
         function get(table) {
 
@@ -32,7 +33,8 @@
                 url: baseUrl + table
             };
 
-            return $http(config);
+            //return $http(config);
+            return $http.get(baseUrl + table);
         }
 
         function add(data, table) {
@@ -47,7 +49,7 @@
             return $http(config);
         }
 
-        function update(data, objectId, table) {
+        function update(data, table, objectId) {
             
             angular.extend(data, {
                'objectId': objectId
@@ -64,7 +66,7 @@
 
         }
 
-        function remove(objectId, table) {
+        function remove(table, objectId) {
             
             var config = {
                 // headers in credentials

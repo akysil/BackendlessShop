@@ -17,6 +17,11 @@
             controller: 'homeController',
             controllerAs: 'home'
         })
+        .when('/text', {
+            templateUrl: 'text.html',
+            controller: 'textController',
+            controllerAs: 'text'
+        })
         .when('/item', {
             templateUrl: 'item.html',
             controller: 'itemController',
