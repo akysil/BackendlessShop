@@ -23,7 +23,7 @@
 
             var content, sourceTable = 'pages';
 
-            if (content) return content;
+            //if (content) return content;
 
             Data.get(sourceTable)
             .then(success, error);
