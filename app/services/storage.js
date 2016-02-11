@@ -9,36 +9,35 @@
     
     function Storage($timeout, Data) {
 
-        var staticPages;
+        var storage;
 
         var methods = {
-            get staticPages() { return staticPages || getStaticPages(); }
+            get: function() { return storage; },
+            
+            //get get() { return storage; },
+            //set update(options) { update(options); }
         };
+
+        getStorage();
 
         return methods;
 
         // --------------------------------------------------------------------
 
-        function getStaticPages() {
+        function getStorage() {
 
-            var content, sourceTable = 'pages';
-
-            //if (content) return content;
-
-            Data.get(sourceTable)
+            Data.get('pages')
             .then(success, error);
 
-            return content;
-
             function success(data) {
-                console.log(sourceTable + ': ' + data.status);
-                content = data.data.data;
+                console.log(data.status);
+                storage = data.data.data;
             }
 
             function error(data) {
-                console.warn(sourceTable + ': ' + data.status);
+                console.warn(data.status);
                 $timeout(function() {
-                    getStaticPages();
+                    getstorage();
                 }, 1000);
             }
 

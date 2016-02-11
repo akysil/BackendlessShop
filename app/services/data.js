@@ -25,18 +25,6 @@
 
         // --------------------------------------------------------------------
 
-        function get(table) {
-
-            var config = {
-                // headers in credentials
-                method: 'GET',
-                url: baseUrl + table
-            };
-
-            //return $http(config);
-            return $http.get(baseUrl + table);
-        }
-
         function add(data, table) {
             
             var config = {

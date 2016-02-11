@@ -21,17 +21,13 @@
         }
     }
 
-    footerController.$inject = ['$scope', '$location'];
+    footerController.$inject = ['$scope', 'Storage'];
 
-    function footerController($scope, $location) {
+    function footerController($scope, Storage) {
         
         // as controllerAs
         /* jshint validthis: true */
-        var footer = this;
-        
-
-        //if ($location.path().indexOf('footer')) footer.show = true;
-        
+        var footer = this;        
 
         //
 
