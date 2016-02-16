@@ -16,14 +16,14 @@
 
         return directive;
 
-        function linkFunc(scope, el, attr, header) {
+        function linkFunc(scope, element, attr, header) {
             //
         }
     }
 
-    headerController.$inject = ['$scope', 'Storage', '$log'];
+    headerController.$inject = ['$scope', 'Storage', '$log', '$cacheFactory'];
 
-    function headerController($scope, Storage, $log) {
+    function headerController($scope, Storage, $log, $cacheFactory) {
         
         // as controllerAs
         /* jshint validthis: true */
@@ -32,9 +32,17 @@
         $scope.$watch(function() { return Storage.get(); }, function(newValue, oldValue) {
             
             if (newValue) header.nav = newValue;
-            console.log(header.nav);
+            //console.log(header.nav);
             
         });
+
+
+        var cache = $cacheFactory('cacheId');
+
+        cache.put('key', 'value');
+        cache.put('another key', 'another value');
+
+        console.log(cache.get('key'));
         
     }
     

@@ -16,7 +16,7 @@
 
         return directive;
 
-        function linkFunc(scope, el, attr, footer) {
+        function linkFunc(scope, element, attr, footer) {
             //
         }
     }

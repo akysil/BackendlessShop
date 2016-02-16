@@ -2,10 +2,11 @@
     'use strict';
 
     angular
-        .module('app')
+        .module('sls')
         .directive('breadcrumbs', breadcrumbs);
 
     function breadcrumbs() {
+        
         var directive = {
             restrict: 'A',
             templateUrl: 'breadcrumbs.html',
@@ -21,20 +22,15 @@
         }
     }
 
-    breadcrumbsController.$inject = ['$scope', '$location'];
+    breadcrumbsController.$inject = ['$scope'];
 
-    function breadcrumbsController($scope, $location) {
+    function breadcrumbsController($scope) {
         
         // as controllerAs
         /* jshint validthis: true */
-        var breadcrumbs = this;
-        
-
-        //if ($location.path().indexOf('breadcrumbs')) breadcrumbs.show = true;
-        
+        var breadcrumbs = this;        
 
         //
-
         
     }
     

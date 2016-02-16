@@ -2,10 +2,11 @@
     'use strict';
 
     angular
-        .module('app')
+        .module('sls')
         .directive('search', search);
 
     function search() {
+        
         var directive = {
             restrict: 'E',
             templateUrl: 'search.html',
@@ -21,20 +22,15 @@
         }
     }
 
-    searchController.$inject = ['$scope', '$location'];
+    searchController.$inject = ['$scope'];
 
-    function searchController($scope, $location) {
+    function searchController($scope) {
         
         // as controllerAs
         /* jshint validthis: true */
-        var search = this;
-        
-
-        //if ($location.path().indexOf('search')) search.show = true;
-        
+        var search = this;        
 
         //
-
         
     }
     

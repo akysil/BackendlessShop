@@ -48,17 +48,18 @@ gulp.task('clean-dist', function() {
 });
 
 gulp.task('scripts', function() {
-    return gulp.src(['app/**/**.js'])
+    return gulp.src(['sls*/**/**.js'])
     .pipe(jshint())
     .pipe(jshint.reporter('default'))
     //.pipe(jshint.reporter('fail'))
-    .pipe(concat('app.js'))
+    .pipe(concat('sls.js'))
     .pipe(uglify())
     .pipe(gulp.dest('dist/'));
 });
 
 gulp.task('styles', function() {
-    return gulp.src(['app/scss/app.scss'])
+    return gulp.src(['sls/**/*.scss'])
+    .pipe(concat('sls.css'))
     .pipe(sass().on('error', sass.logError))
     .pipe(autoprefixer({ browsers: BROWSERS }))
     .pipe(minifyCSS(CSSconfig))
@@ -67,31 +68,31 @@ gulp.task('styles', function() {
 
 gulp.task('files', function () {
     del(['dist/**/*.' + EXTENSIONS]);
-    return gulp.src('app/**/*.' + EXTENSIONS)
+    return gulp.src('assets/**/*.' + EXTENSIONS)
     .pipe(gulp.dest('dist/'));
 });
 
 gulp.task('html', function () {
-    return gulp.src('app/index.html')
-    .pipe(inject(gulp.src(['app/**/*.html', '!app/index.html']).pipe(minifyHTML(HTMLconfig)), {
+    return gulp.src('sls/index.html')
+    .pipe(inject(gulp.src(['sls*/**/*.html', '!sls/index.html']).pipe(minifyHTML(HTMLconfig)), {
         transform: function (filepath, file, index, length, targetFile) {
             return '<script type="text/ng-template" id="'+ filepath.split('/').pop() +'">' + file.contents.toString('utf8') + '</script>\n';
         }
     }))
-    .pipe(concat('app.html'))
+    .pipe(concat('sls.html'))
     .pipe(minifyHTML(HTMLconfig))
     .pipe(gulp.dest('./dist'));
 });
 
 gulp.task('inline', function () {
-    return gulp.src('dist/app.html')
+    return gulp.src('dist/sls.html')
     .pipe(inlinesource())
     .pipe(concat('index.html'))
     .pipe(gulp.dest('./dist'));
 });
 
-gulp.task('del-app', function () {
-    return del('dist/app*');
+gulp.task('del-sls', function () {
+    return del('dist/sls*');
 });
 
 gulp.task('run', function () {
@@ -102,7 +103,7 @@ gulp.task('run', function () {
         'styles',
         'files',
         'inline',
-        'del-app'
+        'del-sls'
     );
 });
 
@@ -122,7 +123,7 @@ gulp.task('default', function() {
     });
 
 
-    gulp.watch(['app/scss/*.scss','app/**/*.js','app/**/*.html','app/**/*.' + EXTENSIONS], ['run', browserSync.reload]);
+    gulp.watch(['sls*/**/*.scss','sls*/**/*.js','sls*/**/*.html','assets/**/*.' + EXTENSIONS], ['run', browserSync.reload]);
     
     //gulp.watch(['app/**/*.' + EXTENSIONS], ['files']);
 

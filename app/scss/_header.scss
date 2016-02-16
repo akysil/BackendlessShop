@@ -9,19 +9,18 @@ header {
     align-items: flex-start;
     align-content: flex-start;
 }
-header language,
-header basket,
-header logo,
-header nav {
+header > * {
     display: block;
     padding: 1rem 1rem 0 1rem;
 }
+
 header language {
     text-transform: uppercase;
     letter-spacing: 1px;
     font-size: 0.7rem;
     color: lighten( black, 70% );
 }
+
 header basket {
     height: 3.3rem;
     overflow: hidden;
@@ -29,6 +28,7 @@ header basket {
 header basket .material-icons {
     color: $green;
 }
+
 header logo {
     text-align: center;
     flex: 1 100%;
@@ -38,6 +38,7 @@ header logo img {
     max-height: 10vh;
     max-width: 80vw;
 }
+
 header nav {
     width: 100%;
     padding: 2rem 1rem 0.5rem 1rem;

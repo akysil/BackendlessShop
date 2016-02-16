@@ -2,7 +2,7 @@
     'use strict';
 
     angular
-        .module('app')
+        .module('sls')
         .factory('SETTINGS', SETTINGS);
 
     function SETTINGS() {
