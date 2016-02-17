@@ -5,29 +5,26 @@
         .module('sls')
         .factory('Cache', Cache);
 
-    Cache.$inject = ['Data'];
+    Cache.$inject = ['$q', 'Data'];
     
-    function Cache(Data) {
+    function Cache($q, Data) {
 
         var cache = {};
+
+        function get(table) {
+            if (!cache[table]) {
+                Data.get(table).then(function(data) {
+                    cache[table] = data.data.data;
+                });
+            }
+            return cache[table] || $q.when(cache[table]);
+        }
         
         return {
-            get: function(table) {
-
-                if (!cache[table]) {
-                    Data.get(table).then(function(data) {
-                        console.log('query for '+table);
-                        cache[table] = data.data.data;
-                    });
-                }
-
-                return cache[table];
-            }
+            get: get
         };
 
         // --------------------------------------------------------------------
-
-        
         
         //TODO: update arguments sequence ( aka Cache -> table -> objectId) 
 
