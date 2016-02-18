@@ -22,21 +22,20 @@
         }
     }
 
-    topmenuController.$inject = ['$scope', '$timeout', 'Cache'];
+    topmenuController.$inject = ['$scope', 'Cache'];
 
-    function topmenuController($scope, $timeout, Cache) {
+    function topmenuController($scope, Cache) {
         
         // as controllerAs
         /* jshint validthis: true */
         var topmenu = this;
-        
-        topmenu.list = Cache.get('pages');
 
-        console.log(Cache.get('pages'));
+        Cache.get('pages').then(function(pages) {
+            topmenu.list = pages;
+        });
 
-        $timeout(function(){
-            console.log(topmenu.list);
-        }, 1000);
+
+            
         
     }
     

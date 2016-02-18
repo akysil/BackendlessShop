@@ -10,19 +10,23 @@
     function Cache($q, Data) {
 
         var cache = {};
-
-        function get(table) {
-            if (!cache[table]) {
-                Data.get(table).then(function(data) {
-                    cache[table] = data.data.data;
-                });
-            }
-            return cache[table] || $q.when(cache[table]);
-        }
         
         return {
             get: get
         };
+
+        function get(table, force) {
+            var deferral = $q.defer();
+            if (cache[table] && !force) {
+                deferral.resolve(cache[table]);
+            } else {
+                Data.get(table).then(function(data) {
+                    cache[table] = data.data.data;
+                    deferral.resolve(cache[table]);
+                });
+            }
+            return deferral.promise;
+        }
 
         // --------------------------------------------------------------------
         

@@ -1,19 +1,20 @@
-var         gulp = require('gulp');
-var       jshint = require('gulp-jshint');
-var       uglify = require('gulp-uglify');
-var    minifyCSS = require('gulp-minify-css');
-var          del = require('del');
-var       concat = require('gulp-concat');
-var autoprefixer = require('gulp-autoprefixer');
-var         sass = require('gulp-sass');
-var  runSequence = require('run-sequence');
-var  browserSync = require('browser-sync').create();
-var      request = require('request');
-var           fs = require('fs');
-var        async = require('async');
-var       inject = require('gulp-inject');
-var inlinesource = require('gulp-inline-source');
-var   minifyHTML = require('gulp-htmlmin');
+var               gulp = require('gulp');
+var             jshint = require('gulp-jshint');
+var             uglify = require('gulp-uglify');
+var          minifyCSS = require('gulp-minify-css');
+var                del = require('del');
+var             concat = require('gulp-concat');
+var       autoprefixer = require('gulp-autoprefixer');
+var               sass = require('gulp-sass');
+var        runSequence = require('run-sequence');
+var        browserSync = require('browser-sync').create();
+var            request = require('request');
+var                 fs = require('fs');
+var              async = require('async');
+var             inject = require('gulp-inject');
+var       inlinesource = require('gulp-inline-source');
+var         minifyHTML = require('gulp-htmlmin');
+var historyApiFallback = require('connect-history-api-fallback');
 
 var BROWSERS = [
                     'ie >= 10',
@@ -118,7 +119,8 @@ gulp.task('default', function() {
             baseDir: "./dist/",
             middleware: function (request, response, next) {
                 next();
-            }
+            },
+            middleware: [ historyApiFallback() ]
         }
     });
 
