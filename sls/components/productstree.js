@@ -22,15 +22,17 @@
         }
     }
 
-    productstreeController.$inject = ['$scope'];
+    productstreeController.$inject = ['$scope', 'Cache'];
 
-    function productstreeController($scope) {
+    function productstreeController($scope, Cache) {
         
         // as controllerAs
         /* jshint validthis: true */
         var productstree = this;        
 
-        //
+        Cache.get('plants').then(function(data) {
+            productstree.plants = data;
+        });
         
     }
     
