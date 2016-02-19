@@ -21,19 +21,15 @@
 
 
 var list = ['about', 'planting', 'payment', 'contacts'];
- 
+var pages = [];
+Cache.git('pages').then(function(pages) {
+    pages = pages.map(function(page){return page.name;});
+});
+
 $urlMatcherFactoryProvider.type('listItem', {
-  encode: function(item) {
-    // Represent the list item in the URL using its corresponding index
-    return item;
-  },
-  decode: function(item) {
-    // Look up the list item by index
-    return item;
-  },
+  encode: function(item) { return item; },
+  decode: function(item) { return item; },
   is: function(item) {
-    // Ensure the item is valid by checking to see that it appears
-    // in the list
     return list.indexOf(item) > -1;
   }
 });
