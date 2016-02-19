@@ -30,9 +30,9 @@
         /* jshint validthis: true */
         var productstree = this;        
 
-        Cache.get('plants').then(function(data) {
-            productstree.plants = data;
-        });
+        //Cache.get('plants').then(function(data) {
+        //    productstree.plants = data;
+        //});
         
     }
     

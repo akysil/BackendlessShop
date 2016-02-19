@@ -16,6 +16,7 @@
                          VERSION: 'v1',
                         API_BASE: 'https://api.backendless.com/',
                            TOKEN: '',
+                   CACHE_TIMEOUT: 86400000, // 1 day in milliseconds
                    get API_USER() { return this.API_BASE + this.VERSION + '/users/'; },
                    get API_DATA() { return this.API_BASE + this.VERSION + '/data/'; }
                     

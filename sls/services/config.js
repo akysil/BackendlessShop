@@ -22,9 +22,7 @@
 
 var list = ['about', 'planting', 'payment', 'contacts'];
 var pages = [];
-Cache.get('pages').then(function(pages) {
-    pages = pages.map(function(page){return page.name;});
-});
+
 
 $urlMatcherFactoryProvider.type('listItem', {
   encode: function(item) { return item; },
