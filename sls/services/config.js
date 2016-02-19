@@ -22,7 +22,7 @@
 
 var list = ['about', 'planting', 'payment', 'contacts'];
 var pages = [];
-Cache.git('pages').then(function(pages) {
+Cache.get('pages').then(function(pages) {
     pages = pages.map(function(page){return page.name;});
 });
 
