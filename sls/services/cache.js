@@ -9,7 +9,8 @@
     
     function Cache($q, Data) {
 
-        var cache = {};
+        if(!window.localStorage) window.localStorage = {};
+        var cache = window.localStorage;
         
         return {
             get: get
