@@ -48,6 +48,7 @@
                             }
                         }
                     })
+                    // TODO: automatic default value assignment or automatic redirect to 'no slash'
                     .state('item', {
                         url: '^/item',
                         templateUrl: 'item.html'
@@ -65,6 +66,8 @@
 
             $urlRouter.listen();
         }
+        
+        //TODO: service should return function
 
         return provider;
 
