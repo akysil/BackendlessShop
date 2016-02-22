@@ -1,3 +1,4 @@
+
 (function() {
     'use strict';
 
@@ -13,11 +14,13 @@
         /* jshint validthis: true */
         var page = this;
 
-        page.temp = $stateParams.link;
+        $scope.$watch(getPages, function(newVal, oldVal) {
+            page.pages = newVal;
+        });
 
-        //console.log(Cache.$get);
-        //console.log(Provider.test);
-
+        function getPages() {
+            return Cache.getCurrent.pages;
+        }
     }
-        
+
 })();
