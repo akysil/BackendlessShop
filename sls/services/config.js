@@ -21,8 +21,16 @@
             };
         });
 
-        //$stateProvider.trailingSlash();
-        //$urlMatcherFactoryProvider.strictMode(false);
+        // remove the last slash
+        $urlRouterProvider.rule(function ($injector, $location) {
+            var re = /(.+)(\/+)(\?.*)?$/
+            var path = $location.url();
+            if(re.test(path)) {
+                return path.replace(re, '$1$3')
+            }
+            return false;
+        });
+
         // move $state config to .run()
         StateConfigProvider.set($stateProvider);
         $urlRouterProvider.deferIntercept();

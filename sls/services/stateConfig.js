@@ -43,7 +43,6 @@
                         controller: 'pageController as page',
                         params:  {
                             link: {
-                                value: 'about',
                                 squash: false
                             }
                         }

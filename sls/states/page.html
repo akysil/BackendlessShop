@@ -1,8 +1,8 @@
 
-<section page ng-repeat="page in pages track by page.link" ng-if="page.link === $stateParams.link">
+<section page>
 
-    <h1 ng-bind="page.subject"></h1>
+    <h1 ng-bind="page.content.subject"></h1>
     
-    {{page.content}}
+    {{page.content.body}}
 
 </section>
