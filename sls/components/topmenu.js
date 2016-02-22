@@ -30,13 +30,14 @@
         /* jshint validthis: true */
         var topmenu = this;
 
-        Cache.get('pages').then(function(pages) {
-            topmenu.list = pages;
+        $scope.$watch(getList, function(newVal, oldVal) {
+            topmenu.list = newVal;
         });
 
+        function getList() {
+            return Cache.getCurrent.pages;
+        }
 
-            
-        
     }
     
 })();

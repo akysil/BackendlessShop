@@ -1,5 +1,5 @@
 <ul>
-    <li ng-repeat="m in topmenu.list"><a ng-href="/{{m.name}}" ng-bind="m.subject"></a></li>
+    <li ng-repeat="m in topmenu.list"><a ui-sref="pages({link:m.link})" ng-bind="m.subject"></a></li>
     <!--
     <li><a href="#"><i class="material-icons">add_box</i></a></li>
     -->

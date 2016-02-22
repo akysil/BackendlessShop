@@ -87,7 +87,7 @@ gulp.task('html', function () {
 
 gulp.task('inline', function () {
     return gulp.src('dist/sls.html')
-    .pipe(inlinesource())
+    .pipe(inlinesource({ compress: true }))
     .pipe(concat('index.html'))
     .pipe(gulp.dest('./dist'));
 });

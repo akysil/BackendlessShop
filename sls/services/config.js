@@ -5,9 +5,11 @@
         .module('sls')
         .config(config);
 
-    config.$inject = ['$httpProvider', '$stateProvider', '$urlRouterProvider', '$locationProvider', '$urlMatcherFactoryProvider'];
+    config.$inject = ['$httpProvider', '$stateProvider', '$locationProvider', '$urlRouterProvider', '$urlMatcherFactoryProvider', 'StateConfigProvider'];
 
-    function config($httpProvider, $stateProvider, $urlRouterProvider, $locationProvider, $urlMatcherFactoryProvider) {
+    function config($httpProvider, $stateProvider, $locationProvider, $urlRouterProvider, $urlMatcherFactoryProvider, StateConfigProvider) {
+        
+        if (window.location.hostname === ('localhost' || 'cvetnik.com.ua')) $locationProvider.html5Mode(true);
 
         $httpProvider.interceptors.push('Credentials');
         $httpProvider.interceptors.push(function() {
@@ -19,46 +21,11 @@
             };
         });
 
-
-var list = ['about', 'planting', 'payment', 'contacts'];
-var pages = [];
-
-
-$urlMatcherFactoryProvider.type('listItem', {
-  encode: function(item) { return item; },
-  decode: function(item) { return item; },
-  is: function(item) {
-    return list.indexOf(item) > -1;
-  }
-});
- 
-$stateProvider.state('list', {
-  url: "/list/{item:listItem}",
-                templateUrl: "page.html",
-  controller: function() {
-    console.log('$stateParams.item');
-    alert('hi');
-  }
-});
-
-        $stateProvider
-            .state('home', {
-                url: "/",
-                templateUrl: "home.html"
-            })
-            .state('item', {
-                url: "/item",
-                templateUrl: "item.html"
-            })
-            .state('pages', {
-                url: "/{item:listItem}",
-                templateUrl: "page.html",
-                controller: 'pageController as page'
-            });
-
-        $urlRouterProvider.otherwise('/');
-        
-        if (window.location.hostname === ('localhost' || 'cvetnik.com.ua')) $locationProvider.html5Mode(true);
+        //$stateProvider.trailingSlash();
+        //$urlMatcherFactoryProvider.strictMode(false);
+        // move $state config to .run()
+        StateConfigProvider.set($stateProvider);
+        $urlRouterProvider.deferIntercept();
     }
 
 

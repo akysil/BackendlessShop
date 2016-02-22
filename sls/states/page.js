@@ -5,18 +5,18 @@
         .module('sls')
         .controller('pageController', pageController);
 
-    pageController.$inject = ['$scope', '$rootScope'];
+    pageController.$inject = ['$scope', '$rootScope', '$stateParams', 'Cache', 'Provider'];
     
-    function pageController($scope, $rootScope) {
+    function pageController($scope, $rootScope, $stateParams, Cache, Provider) {
         
         // as controllerAs
         /* jshint validthis: true */
         var page = this;
 
-        $scope.$on('$viewContentLoaded', 
-        function(event, unfoundState, fromState, fromParams){ 
-            console.log(event);
-        });
+        page.temp = $stateParams.link;
+
+        //console.log(Cache.$get);
+        //console.log(Provider.test);
 
     }
         
