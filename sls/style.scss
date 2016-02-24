@@ -107,17 +107,16 @@ header > * {
     padding: 1rem 1rem 0 1rem;
 }
 
-aside {
+aside[leftblock] {
     flex: 1;
-    padding: 0 1.3rem 1rem calc(50% - 500px - 1rem);
+    padding: 0 1.3rem 1rem calc(50% - 600px);
     margin: 0 0 3rem 1rem;
     border-right: 1px solid lighten( black, 85% );
 }
 
 main {
     flex: 3;
-    padding: 0 calc(50% - 500px - 1rem) 1rem 1.3rem;
-    margin-right: 1rem;
+    padding: 0 1.3rem 1rem 1.3rem;
     display: flex;
     flex-wrap: wrap;
     justify-content: space-between;
@@ -140,6 +139,13 @@ main > content section h1 {
     text-transform: uppercase;
     letter-spacing: 1px;
     margin: 0 0 1.5rem 0;
+}
+
+aside[rightblock] {
+    flex: 1;
+    padding: 0 calc(50% - 600px) 1rem 1.3rem;
+    margin: 0 1rem 3rem 0;
+    border-left: 1px solid lighten( black, 85% );
 }
 
 footer {

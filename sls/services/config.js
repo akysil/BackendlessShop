@@ -23,10 +23,10 @@
 
         // remove the last slash
         $urlRouterProvider.rule(function ($injector, $location) {
-            var re = /(.+)(\/+)(\?.*)?$/
+            var re = /(.+)(\/+)(\?.*)?$/;
             var path = $location.url();
             if(re.test(path)) {
-                return path.replace(re, '$1$3')
+                return path.replace(re, '$1$3');
             }
             return false;
         });
