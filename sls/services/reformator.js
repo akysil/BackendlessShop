@@ -8,37 +8,43 @@
     Reformator.$inject = [];
     
     function Reformator() {
-        
+
         var service = {
-            getTree: getTree
+            menu: menu
         };
 
         return service;
 
-        function getTree(data) {
+        function menu(data) {
             
-            var categories = [];
-            var tree = [];
+            var productsForMenu = [];
 
             for (var i = 0, j = data.length; i < j; i++) {
-                
-                setCategories(data[i]);
-                console.log(categories);
-
-                setTree();
+                productsForMenu = productsForMenu.concat(composeNewProducts(data[i]));
             }
 
-            return data;
+            return productsForMenu;
 
-            function setCategories(product) {
+            function composeNewProducts(product) {
+                
+                var newProducts = [];
                 
                 for (var i = 0, j = product.category.length; i < j; i++) {
-                    if (!~categories.indexOf(product.category[i].name))
-                        categories[categories.length] = product.category[i].name;
+
+                    newProducts[newProducts.length] = {
+                        title: product.title,
+                        link: product.link,
+                        categoryTitle: product.category[i].title,
+                        categoryLink: product.category[i].link,
+                        categoryPriority: product.category[i].priority,
+                        categorySide: product.category[i].side
+                    };
+
                 }
 
-            }
+                return newProducts;
 
+            }
 
         }
 

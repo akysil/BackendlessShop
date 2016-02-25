@@ -32,7 +32,8 @@
 
         Cache.get('products').then(function(data) {
             //Reformator.getTree(data);
-            console.log(Reformator.getTree(data));
+            //console.log(Reformator.menu(data));
+            leftmenu.list = Reformator.menu(data);
         });
         
     }
