@@ -47,7 +47,6 @@
                             }
                         }
                     })
-                    // TODO: automatic default value assignment or automatic redirect to 'no slash'
                     .state('item', {
                         url: '^/item',
                         templateUrl: 'item.html'
