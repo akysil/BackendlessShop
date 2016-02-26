@@ -1,3 +1,4 @@
+
 (function() {
     'use strict';
 
@@ -6,7 +7,7 @@
         .directive('leftmenu', leftmenu);
 
     function leftmenu() {
-        
+
         var directive = {
             restrict: 'A',
             templateUrl: 'leftmenu.html',
@@ -25,17 +26,15 @@
     leftmenuController.$inject = ['$scope', 'Cache', 'Reformator'];
 
     function leftmenuController($scope, Cache, Reformator) {
-        
+
         // as controllerAs
         /* jshint validthis: true */
         var leftmenu = this;        
 
         Cache.get('products').then(function(data) {
-            //Reformator.getTree(data);
-            //console.log(Reformator.menu(data));
             leftmenu.list = Reformator.menu(data);
         });
-        
+
     }
-    
+
 })();
