@@ -22,17 +22,17 @@
         }
     }
 
-    rightmenuController.$inject = ['$scope', 'Cache'];
+    rightmenuController.$inject = ['$scope', 'Cache', 'Reformator'];
 
-    function rightmenuController($scope, Cache) {
+    function rightmenuController($scope, Cache, Reformator) {
         
         // as controllerAs
         /* jshint validthis: true */
         var rightmenu = this;        
 
-        //Cache.get('plants').then(function(data) {
-        //    rightmenu.plants = data;
-        //});
+        Cache.get('products').then(function(data) {
+            rightmenu.list = Reformator.menu(data);
+        });
         
     }
     

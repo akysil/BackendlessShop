@@ -1,10 +1,16 @@
 <h1>Фотокаталог</h1>
 
-<h2 ng-repeat-start="category in leftmenu.list | filter:{categorySide: 'left'} | unique:'categoryLink' | orderBy:'categoryPriority' track by $index">
-    {{category.categoryTitle}}
+<h2
+    ng-repeat-start="category in leftmenu.list | filter:{categorySide: 'left'} | unique:'categoryLink' | orderBy:'categoryPriority' track by $index"
+    ng-bind="category.categoryTitle">
 </h2>
+
 <ul ng-repeat-end>
-    <li ng-repeat="product in leftmenu.list track by $index" ng-if="product.categoryLink === category.categoryLink">
-        <a href="{{product.link}}">{{product.title}}</a>
+    <li
+        ng-repeat="product in leftmenu.list track by $index"
+        ng-if="product.categoryLink === category.categoryLink">
+        <a
+            ui-sref="products({link:product.link})"
+            ng-bind="product.title"></a>
     </li>
 </ul>

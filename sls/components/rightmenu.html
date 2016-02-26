@@ -1,26 +1,16 @@
-<h1>Фильтры</h1>
-<h2>Растения в подарок</h2>
-<ul>
-    <li><a href="/dsghsdghsds&fg=5236437">Бонсай Фикус (40 см)</a></li>
-    <li><a href="#">Вриезия 50 см</a></li>
-    <li><a href="#">Денежное Дерево (Крассула) 50 см</a></li>
-</ul>
-<h2>Растения в подарок</h2>
-<ul>
-    <li><a href="#">Бонсай Фикус (40 см)</a></li>
-    <li><a href="#">Вриезия 50 см</a></li>
-    <li><a href="#">Денежное Дерево (Крассула) 50 см</a></li>
-</ul>
-<h1>Фильтры</h1>
-<h2>Растения в подарок</h2>
-<ul>
-    <li><a href="#">Бонсай Фикус (40 см)</a></li>
-    <li><a href="#">Вриезия 50 см</a></li>
-    <li><a href="#">Денежное Дерево (Крассула) 50 см</a></li>
-</ul>
-<h2>Растения в подарок</h2>
-<ul>
-    <li><a href="#">Бонсай Фикус (40 см)</a></li>
-    <li><a href="#">Вриезия 50 см</a></li>
-    <li><a href="#">Денежное Дерево (Крассула) 50 см</a></li>
+<h1>Принадлежности</h1>
+
+<h2
+    ng-repeat-start="category in leftmenu.list | filter:{categorySide: 'right'} | unique:'categoryLink' | orderBy:'categoryPriority' track by $index"
+    ng-bind="category.categoryTitle">
+</h2>
+
+<ul ng-repeat-end>
+    <li
+        ng-repeat="product in leftmenu.list track by $index"
+        ng-if="product.categoryLink === category.categoryLink">
+        <a
+            ui-sref="products({link:product.link})"
+            ng-bind="product.title"></a>
+    </li>
 </ul>

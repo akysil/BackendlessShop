@@ -18,9 +18,9 @@
             $get: service
         };
 
-        service.$inject = ['$urlRouter', '$q', 'SETTINGS', 'Cache', 'StateUrls'];
+        service.$inject = ['$urlRouter', '$q', 'SETTINGS', 'Cache', 'StateLinks'];
 
-        function service($urlRouter, $q, SETTINGS, Cache, StateUrls) {
+        function service($urlRouter, $q, SETTINGS, Cache, StateLinks) {
             
             var initRequests = [];
 
@@ -30,7 +30,7 @@
 
             $q.all(initRequests).then(function() {
 
-                var stateUrls = StateUrls(SETTINGS.BASIC_SRC);
+                var stateLinks = StateLinks(SETTINGS.BASIC_SRC);
 
                 $stateProviderRef
                     .state('home', {
@@ -38,18 +38,14 @@
                         templateUrl: 'home.html'
                     })
                     .state('pages', {
-                        url: '^/pages/{link:{|' + stateUrls.pages + '}i}',
+                        url: '^/{link:{|' + stateLinks.pages + '}i}',
                         templateUrl: 'page.html',
-                        controller: 'pageController as page',
-                        params:  {
-                            link: {
-                                squash: false
-                            }
-                        }
+                        controller: 'pageController as page'
                     })
-                    .state('item', {
-                        url: '^/item',
-                        templateUrl: 'item.html'
+                    .state('products', {
+                        url: '^/{link:{|' + stateLinks.products + '}i}',
+                        templateUrl: 'product.html',
+                        controller: 'productController as product'
                     })
                     .state('otherwise', {
                         url: '*path',

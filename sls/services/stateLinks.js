@@ -3,22 +3,22 @@
 
     angular
         .module('sls')
-        .factory('StateUrls', StateUrls);
+        .factory('StateLinks', StateLinks);
 
-    StateUrls.$inject = ['Cache'];
+    StateLinks.$inject = ['Cache'];
     
-    function StateUrls(Cache) {
+    function StateLinks(Cache) {
         
         return function(tables) {
             //console.log(tables);
 
-            var stateUrls = {};
+            var stateLinks = {};
 
             getTable(tables);
 
             function getTable(tables) {
                 for (var i = 0, len = tables.length; i < len; i++) {
-                    stateUrls[tables[i]] = '';
+                    stateLinks[tables[i]] = '';
                     getUrls(tables[i]);
                 }
             }
@@ -26,11 +26,11 @@
             function getUrls(tableName) {
                 var table = Cache.getCurrent[tableName] || [];
                 for (var i = 0, len = table.length; i < len; i++) {
-                    stateUrls[tableName] += (table[i].link) ? (table[i].link + '|') : '';
+                    stateLinks[tableName] += (table[i].link) ? (table[i].link + '|') : '';
                 }
             }
 
-            return stateUrls;   
+            return stateLinks;   
         };
 
     }
