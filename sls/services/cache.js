@@ -13,7 +13,7 @@
         
         return {
             get: get,
-            getCurrent: cache
+            getSync: cache
         };
 
         function get(table, force) {

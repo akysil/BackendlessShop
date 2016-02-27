@@ -54,7 +54,7 @@ gulp.task('scripts', function() {
     .pipe(jshint.reporter('default'))
     //.pipe(jshint.reporter('fail'))
     .pipe(concat('sls.js'))
-    .pipe(uglify())
+    //.pipe(uglify())
     .pipe(gulp.dest('dist/'));
 });
 
@@ -87,7 +87,7 @@ gulp.task('html', function () {
 
 gulp.task('inline', function () {
     return gulp.src('dist/sls.html')
-    .pipe(inlinesource({ compress: true }))
+    .pipe(inlinesource({ compress: false }))
     .pipe(concat('index.html'))
     .pipe(gulp.dest('./dist'));
 });

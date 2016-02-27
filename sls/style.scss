@@ -127,10 +127,10 @@ main > * {
     margin-bottom: 2rem;
     display: block;
 }
-main > content {
+main > container {
     flex: 1 100%;
 }
-main > content section h1 {
+main > container section h1 {
     flex: 1 100%;
     color: lighten( black, 50% );
     font-size: 1.3rem;

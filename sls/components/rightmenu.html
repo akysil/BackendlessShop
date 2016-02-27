@@ -1,13 +1,13 @@
 <h1>Принадлежности</h1>
 
 <h2
-    ng-repeat-start="category in leftmenu.list | filter:{categorySide: 'right'} | unique:'categoryLink' | orderBy:'categoryPriority' track by $index"
+    ng-repeat-start="category in rightmenu.list | filter:{categorySide: 'right'} | unique:'categoryLink' | orderBy:'categoryPriority' track by $index"
     ng-bind="category.categoryTitle">
 </h2>
 
 <ul ng-repeat-end>
     <li
-        ng-repeat="product in leftmenu.list track by $index"
+        ng-repeat="product in rightmenu.list track by $index"
         ng-if="product.categoryLink === category.categoryLink">
         <a
             ui-sref="products({link:product.link})"

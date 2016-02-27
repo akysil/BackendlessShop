@@ -30,13 +30,13 @@
         /* jshint validthis: true */
         var topmenu = this;
 
-        $scope.$watch(getList, function(newVal, oldVal) {
+        function getSyncPages() {
+            return Cache.getSync.pages;
+        }
+
+        $scope.$watch(getSyncPages, function(newVal, oldVal) {
             topmenu.list = newVal;
         });
-
-        function getList() {
-            return Cache.getCurrent.pages;
-        }
 
     }
 

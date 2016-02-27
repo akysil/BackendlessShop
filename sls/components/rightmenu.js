@@ -28,10 +28,14 @@
         
         // as controllerAs
         /* jshint validthis: true */
-        var rightmenu = this;        
+        var rightmenu = this;
 
-        Cache.get('products').then(function(data) {
-            rightmenu.list = Reformator.menu(data);
+        function getSyncProducts() {
+            return Cache.getSync.products;
+        }
+
+        $scope.$watch(getSyncProducts, function(newVal, oldVal) {
+            rightmenu.list = Reformator.menu(newVal);
         });
         
     }

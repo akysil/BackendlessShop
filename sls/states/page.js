@@ -27,7 +27,7 @@
         });
 
         function getPages() {
-            return Cache.getCurrent.pages;
+            return Cache.getSync.pages;
         }
     }
 

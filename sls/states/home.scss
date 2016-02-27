@@ -1,10 +1,10 @@
-content > section[products] {
+container > section[products] {
     display: block;
     display: flex;
     flex-flow: row wrap;
     justify-content: space-between;
 }
-content > section[products] figure {
+container > section[products] figure {
     width: 150px;
     overflow: hidden;
     text-align: center;
@@ -14,13 +14,13 @@ content > section[products] figure {
     letter-spacing: 1px;
     margin: 0 0 2rem 0;
 }
-content > section[products] figure img {
+container > section[products] figure img {
     height: 170px;
 }
-content > section[products] figure a {
+container > section[products] figure a {
     text-decoration: none;
     color: lighten( black, 20% );
 }
-content > section[products] figure a:hover {
+container > section[products] figure a:hover {
     color: $green;
 }

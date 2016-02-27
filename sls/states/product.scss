@@ -1,46 +1,46 @@
-content > section[product] {
+container > section[product] {
     display: flex;
     flex-wrap: wrap;
     justify-content: space-between;
     align-items: flex-start;
     align-content: flex-start;
 }
-content > section[product] dl {
+container > section[product] dl {
     flex: 1 30%;
     font-family: $serif;
 }
-content > section[product] dl {
+container > section[product] dl {
     flex: 1 30%;
     font-family: $serif;
 }
-content > section[product] dt {
+container > section[product] dt {
     font-size: 0.7rem;
     color: lighten( black, 50% );
     text-transform: uppercase;
     margin: 0 0 0.5rem 0;
 }
-content > section[product] dt:after {
+container > section[product] dt:after {
     content: ':';
 }
-content > section[product] dd {
+container > section[product] dd {
     font-size: 1.3rem;
     color: lighten( black, 0% );
     margin: 0 0 1.5rem 1rem;
 }
-content > section[product] dl input {
+container > section[product] dl input {
     width: 5.2rem;
     text-align: right;
     margin-top: 0.3rem;
 }
 
-content > section[product] figure {
+container > section[product] figure {
     flex: 1 70%;
 }
-content > section[product] figure img {
+container > section[product] figure img {
     width: 100%;
 }
 
-content > section[product] p {
+container > section[product] p {
     margin: 0 0 0.8rem 0;
     font-size: 0.9rem;
     line-height: 1.3rem;

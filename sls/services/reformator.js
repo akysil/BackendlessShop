@@ -10,7 +10,8 @@
 
     function Reformator() {
 
-        var menu, catalog;
+        var menu = [];
+        var catalog;
         
         var service = {
             menu: menuFunc
@@ -20,15 +21,16 @@
 
         function menuFunc(data) {
 
-            if(menu) return menu;
- 
-            var productsForMenu = [];
+            if(!data)
+                return null;
+            if(menu.length)
+                return menu;
 
             for (var i = 0, j = data.length; i < j; i++) {
-                productsForMenu = productsForMenu.concat(productsFromProduct(data[i]));
+                menu = menu.concat(productsFromProduct(data[i]));
             }
 
-            return (menu = productsForMenu);
+            return menu;
 
             function productsFromProduct(product) {
 

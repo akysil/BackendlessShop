@@ -24,7 +24,7 @@
             }
 
             function getUrls(tableName) {
-                var table = Cache.getCurrent[tableName] || [];
+                var table = Cache.getSync[tableName] || [];
                 for (var i = 0, len = table.length; i < len; i++) {
                     stateLinks[tableName] += (table[i].link) ? (table[i].link + '|') : '';
                 }
