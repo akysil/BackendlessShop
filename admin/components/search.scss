@@ -1,0 +1,9 @@
+main search {
+    flex: 1;
+    text-align: right;
+}
+main search form,
+main search input[type=search] {
+    width: 100%;
+    min-width: 150px;
+}

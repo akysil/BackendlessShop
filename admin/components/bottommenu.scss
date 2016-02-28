@@ -1,0 +1,19 @@
+nav[bottommenu] ul {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    text-transform: uppercase;
+    font-family: $serif;
+    margin: 0 0 4rem 0;
+}
+nav[bottommenu] ul a {
+    text-decoration: none;
+    font-size: 0.9rem;
+    letter-spacing: 1px;
+    color: lighten( black, 40% );
+    border-bottom: 1px solid transparent;
+}
+nav[bottommenu] ul a:hover {
+    color: $green;
+    border-bottom: 1px solid $green;
+}

@@ -1,0 +1,14 @@
+
+<table admin>
+    <tr ng-repeat="item in admin.list track by $index">
+        <td>{{item.title}}</td>
+        <td>{{item.fullName}}</td>
+        <td>{{item.latina}}</td>
+        <td>{{item.link}}</td>
+        <td>{{item.price}}</td>
+        <td>{{item.size}}</td>
+        <td class="description"><div>{{item.description}}</div></td>
+        <td class="pictures"><img ng-src="{{'https://api.backendless.com/1C32EF32-4F17-A809-FFFE-1E36794D9700/v1/files/pictures/' + item.pictures.split('|')[0]}}"></td>
+        <td>{{item.category.join('|')}}</td>
+    </tr>
+</table>
