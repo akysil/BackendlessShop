@@ -38,6 +38,8 @@
             if(newVal && newVal.length)
                 root.list = Reformator.menu(newVal);
         });
+        
+        //TODO: preloader false event can be initialized by any custiom directive (with priority 0 by default) -> ng-repert has priority 1000
 
         console.log($location.$$url);
         
