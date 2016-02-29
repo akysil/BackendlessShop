@@ -1,0 +1,62 @@
+main table {
+    
+}
+main table tr {
+    border-bottom: 1px solid lighten( black, 95% );
+}
+main table tr:hover {
+    background: lighten( black, 99% );
+}
+
+main table th,
+main table td {
+    padding: 1rem;
+    vertical-align: top;
+    text-align: left;
+}
+main table th {
+    font-size: 0.9rem;
+    letter-spacing: 1px;
+    font-weight: bold;
+    white-space: nowrap;
+}
+main table td {
+    font-size: 0.8rem;
+}   
+
+main table th.title,
+main table td.title {
+    font-family: $serif;
+    white-space: nowrap;
+    letter-spacing: 1px;
+    color: lighten( black, 0% );
+}
+
+main table th.latina,
+main table td.latina {
+    font-style: italic;
+}
+
+main table th.link,
+main table td.link {
+    font-family: monospace;
+    font-size: 1rem;
+}
+main table td.link {
+    white-space: nowrap;
+    letter-spacing: 1px;
+}
+
+main table th.price,
+main table td.price {
+    background: lighten( black, 98% );
+}
+main table td.pictures img {
+    height: 40px;
+}
+
+main table td.empty:before {
+    content: "\2205";
+    color: red;
+    font-style: normal;
+}

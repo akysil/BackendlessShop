@@ -1,0 +1,619 @@
+<!doctype html>
+<html ng-app="sls.admin" root>
+<head>
+    
+    <script>document.write('<base href="' + document.location + '" />');</script>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>admin</title>
+
+
+
+</head>
+
+<body>
+
+    <header>
+        <nav>
+            <ul>
+                <li><a ui-sref="pages" ui-sref-active="active">Pages</a></li>
+                <li><a ui-sref="products" ui-sref-active="active">Products</a></li>
+                <li><a ui-sref="categories" ui-sref-active="active">Categories</a></li>
+            </ul>
+        </nav>
+    </header>
+    <main ui-view></main>
+    <footer></footer>
+
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+<style>html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp, tt, var, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed,
+figure, figcaption, footer, header, hgroup,
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  font-size: 100%;
+  font: inherit;
+  vertical-align: baseline; }
+
+/* HTML5 display-role reset for older browsers */
+article, aside, details, figcaption, figure,
+footer, header, hgroup, main, menu, nav, section {
+  display: block; }
+
+ol, ul {
+  list-style: none; }
+
+blockquote, q {
+  quotes: none; }
+
+blockquote:before, blockquote:after,
+q:before, q:after {
+  content: '';
+  content: none; }
+
+table {
+  border-collapse: collapse;
+  border-spacing: 0; }
+
+* {
+  outline: none;
+  box-sizing: border-box; }
+
+a {
+  color: #708030;
+  cursor: pointer; }
+
+/* FORMS */
+input {
+  border: 1px solid #d9d9d9;
+  padding: 0.3rem 0.5rem;
+  font-family: Georgia, serif;
+  font-size: 1rem;
+  letter-spacing: 1px; }
+
+input:focus {
+  background: #fafafa; }
+
+input[type=search] {
+  background-repeat: no-repeat;
+  background-size: 1.5rem;
+  background-position: right 0.3rem center;
+  background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"><path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/><path fill="none" d="M0 0h24v24H0z"/></svg>'); }
+
+input[type=search]::-webkit-search-decoration,
+input[type=search]::-webkit-search-cancel-button,
+input[type=search]::-webkit-search-results-button,
+input[type=search]::-webkit-search-results-decoration {
+  display: none; }
+
+/* BASIC */
+html {
+  overflow-y: scroll; }
+
+body {
+  line-height: 1;
+  background: white;
+  font-family: Arial, sans-serif;
+  font-size: 1rem;
+  color: #4d4d4d; }
+
+body > header {
+  border-bottom: 2px solid #f2f2f2;
+  text-align: center;
+  padding: 1rem; }
+
+body > header * {
+  display: inline-block;
+  margin: 0 1rem; }
+
+body > header a {
+  color: #4d4d4d;
+  text-decoration: none;
+  padding: 0 0 2px 0;
+  border-bottom: 2px solid transparent; }
+
+body > header a.active {
+  border-bottom: 2px solid #4d4d4d; }
+
+body > header a:hover {
+  color: #708030;
+  border-bottom: 2px solid #708030; }
+
+main table tr {
+  border-bottom: 1px solid #f2f2f2; }
+
+main table tr:hover {
+  background: #fcfcfc; }
+
+main table th,
+main table td {
+  padding: 1rem;
+  vertical-align: top;
+  text-align: left; }
+
+main table th {
+  font-size: 0.9rem;
+  letter-spacing: 1px;
+  font-weight: bold;
+  white-space: nowrap; }
+
+main table td {
+  font-size: 0.8rem; }
+
+main table th.title,
+main table td.title {
+  font-family: Georgia, serif;
+  white-space: nowrap;
+  letter-spacing: 1px;
+  color: black; }
+
+main table th.latina,
+main table td.latina {
+  font-style: italic; }
+
+main table th.link,
+main table td.link {
+  font-family: monospace;
+  font-size: 1rem; }
+
+main table td.link {
+  white-space: nowrap;
+  letter-spacing: 1px; }
+
+main table th.price,
+main table td.price {
+  background: #fafafa; }
+
+main table td.pictures img {
+  height: 40px; }
+
+main table td.empty:before {
+  content: "\2205";
+  color: red;
+  font-style: normal; }
+</style>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.4.7/angular.min.js"></script>
+<script src='https://cdnjs.cloudflare.com/ajax/libs/angular-ui-router/0.2.18/angular-ui-router.min.js'></script>
+<script>
+(function() {
+    'use strict';
+
+    angular
+        .module('sls.admin', ['ui.router']);
+
+        //
+        
+})();
+
+(function() {
+    'use strict';
+
+    angular
+        .module('sls.admin')
+        .directive('footer', footer);
+
+    function footer() {
+        
+        var directive = {
+            restrict: 'E',
+            templateUrl: 'footer.html',
+            link: linkFunc,
+            controller: footerController, // 'footerController' if in separate file
+            controllerAs: 'footer'
+        };
+
+        return directive;
+
+        function linkFunc(scope, element, attr, footer) {
+            //
+        }
+    }
+
+    footerController.$inject = ['$scope'];
+
+    function footerController($scope) {
+        
+        // as controllerAs
+        /* jshint validthis: true */
+        var footer = this;
+
+        //
+
+    }
+
+    
+})();
+
+(function() {
+    'use strict';
+
+    angular
+        .module('sls.admin')
+        .controller('categoriesController', categoriesController);
+
+    categoriesController.$inject = [];
+
+    function categoriesController() {
+
+        // as controllerAs
+        /* jshint validthis: true */
+        var categories = this;
+
+        //
+
+
+    }
+
+})();
+(function() {
+    'use strict';
+
+    angular
+        .module('sls.admin')
+        .controller('homeController', homeController);
+
+    homeController.$inject = [];
+
+    function homeController() {
+
+        // as controllerAs
+        /* jshint validthis: true */
+        var home = this;
+
+        //
+
+
+    }
+
+})();
+(function() {
+    'use strict';
+
+    angular
+        .module('sls.admin')
+        .controller('pagesController', pagesController);
+
+    pagesController.$inject = [];
+
+    function pagesController() {
+
+        // as controllerAs
+        /* jshint validthis: true */
+        var pages = this;
+
+        //
+
+
+    }
+
+})();
+(function() {
+    'use strict';
+
+    angular
+        .module('sls.admin')
+        .controller('productsController', productsController);
+
+    productsController.$inject = ['Data'];
+
+    function productsController(Data) {
+
+        // as controllerAs
+        /* jshint validthis: true */
+        var products = this;
+
+        Data.get('products').then(function(data) {
+            products.list = data.data.data;
+        });
+
+
+    }
+
+})();
+(function() {
+    'use strict';
+
+    angular
+        .module('sls.admin')
+        .factory('Auth', Auth);
+
+    Auth.$inject = ['$http', 'SETTINGS'];
+    
+    function Auth($http, SETTINGS) {
+
+        var token;
+
+        var methods = {
+            login: login,
+            loginIsValid: loginIsValid
+        };        
+
+        return methods;
+
+        function login(name, password) {
+
+            var loginConfig = {
+                // headers in interceptor
+                method: 'POST',
+                url: SETTINGS.API_BASE + SETTINGS.VERSION + '/Auths/login',
+                data: angular.toJson({ login: name, password: password })
+            };
+
+            return $http(loginConfig);
+        }
+
+        function loginIsValid(token) {
+
+            var loginConfig = {
+                // headers in interceptor
+                method: 'GET',
+                url: SETTINGS.API_BASE + SETTINGS.VERSION + '/Auths/isvalidAuthtoken/' + token
+            };
+
+            return $http(loginConfig);
+        }
+
+    }
+        
+})();
+
+(function() {
+    'use strict';
+
+    angular
+        .module('sls.admin')
+        .config(config);
+
+    config.$inject = ['$httpProvider', '$stateProvider', '$urlRouterProvider'];
+
+    function config($httpProvider, $stateProvider, $urlRouterProvider) {
+
+        $httpProvider.interceptors.push('Credentials');
+
+        $urlRouterProvider.otherwise('/');
+
+        $stateProvider
+            .state('home', {
+                url: '^/',
+                templateUrl: 'home.html',
+                controller: 'homeController as home'
+            })
+            .state('pages', {
+                url: '^/pages',
+                templateUrl: 'pages.html',
+                controller: 'pagesController as pages'
+            })
+            .state('products', {
+                url: '^/products',
+                templateUrl: 'products.html',
+                controller: 'productsController as products'
+            })
+            .state('categories', {
+                url: '^/categories',
+                templateUrl: 'categories.html',
+                controller: 'categoriesController as categories'
+            });
+
+        
+
+    }
+
+
+        
+})();
+
+(function() {
+    'use strict';
+
+    angular
+        .module('sls.admin')
+        .factory('Credentials', Credentials);
+
+    Credentials.$inject = ['$q', 'SETTINGS'];
+    
+    function Credentials($q, SETTINGS) {
+
+        return {
+            request: function(config) {
+
+                config.headers = config.headers || {};
+                if (SETTINGS.TOKEN) config.headers['user-token'] = SETTINGS.TOKEN;
+                
+                angular.extend(config.headers, {
+                   'application-id': SETTINGS.APPLICATION_ID,
+                   'secret-key': SETTINGS.SECRET_KEY,
+                   'Content-Type': SETTINGS.CONTENT_TYPE,
+                   'application-type': SETTINGS.APPLICATION_TYPE
+                });
+
+                return config;
+                //return config || $q.when(config);
+            }
+        };
+
+    }
+        
+})();
+(function() {
+    'use strict';
+
+    angular
+        .module('sls.admin')
+        .factory('Data', Data);
+
+    Data.$inject = ['$http', 'SETTINGS'];
+    
+    function Data($http, SETTINGS) {
+
+        var baseUrl = SETTINGS.API_DATA;
+
+        var methods = {
+            //get: get,
+            get: function(table) { return $http.get(baseUrl + table); },
+            add: add,
+            update: update,
+            remove: remove
+        };
+        
+        //TODO: try to redefine methods
+
+        return methods;
+
+        // --------------------------------------------------------------------
+
+        function add(data, table) {
+            
+            var config = {
+                // headers in credentials
+                method: 'POST',
+                url: baseUrl + table,
+                data: data
+            };
+
+            return $http(config);
+        }
+
+        function update(data, table, objectId) {
+            
+            angular.extend(data, {
+               'objectId': objectId
+            });
+            
+            var config = {
+                // headers in credentials
+                method: 'PUT',
+                url: baseUrl + table + '/' + objectId,
+                data: data
+            };
+
+            return $http(config);
+
+        }
+
+        function remove(table, objectId) {
+            
+            var config = {
+                // headers in credentials
+                method: 'DELETE',
+                url: baseUrl + table + '/' + objectId
+            };
+
+            return $http(config);
+
+        }
+        
+        //TODO: update arguments sequence ( aka data -> table -> objectId) 
+
+    }
+        
+})();
+
+(function() {
+    'use strict';
+
+    angular
+        .module('sls.admin')
+        .run(run);
+
+    run.$inject = [];
+
+    function run() {
+        //
+    }
+
+})();
+
+(function() {
+    'use strict';
+
+    angular
+        .module('sls.admin')
+        .factory('SETTINGS', SETTINGS);
+
+    function SETTINGS() {
+        
+        var settings = {
+
+                  APPLICATION_ID: '1C32EF32-4F17-A809-FFFE-1E36794D9700',
+                      SECRET_KEY: '1337A9EC-A9AF-638F-FF71-4AE60DA79D00',
+                    CONTENT_TYPE: 'application/json',
+                APPLICATION_TYPE: 'REST',
+                         VERSION: 'v1',
+                        API_BASE: 'https://api.backendless.com/',
+                           TOKEN: '',
+                   CACHE_TIMEOUT: 86400000, // 1 day in milliseconds
+                   get API_USER() { return this.API_BASE + this.VERSION + '/users/'; },
+                   get API_DATA() { return this.API_BASE + this.VERSION + '/data/'; },
+                  get BASIC_SRC() { return ['pages', 'products']; }
+                    
+                    //get TOKEN() { return token; },
+                    //set TOKEN(data) { token = data; }
+
+                    //TODO: object with JSON sources: { label:url }
+
+        };
+        
+        //TODO: convert properties to setters
+
+        return settings;
+        
+    }
+        
+})();
+</script>
+
+<!-- inject:html -->
+<script type="text/ng-template" id="footer.html"><!-- footer --></script>
+
+<script type="text/ng-template" id="categories.html">categories</script>
+
+<script type="text/ng-template" id="home.html"><a ui-sref="fg">home</a></script>
+
+<script type="text/ng-template" id="pages.html">pages</script>
+
+<script type="text/ng-template" id="products.html">
+<table>
+    <tr>
+        <th class="title">Title</th>
+        <th class="fullName">Full Name</th>
+        <th class="latina">Lat.</th>
+        <th class="link">Link</th>
+        <th class="price">Price</th>
+        <th class="size">Size</th>
+        <th class="description">Desc.</th>
+        <th class="pictures">Pics.</th>
+        <th class="categories">Cats.</th>
+    </tr>
+    <tr ng-repeat="item in products.list track by $index">
+        <td class="title">{{item.title}}</td>
+        <td class="fullName" ng-class="{empty: !item.fullName}">{{item.fullName}}</td>
+        <td class="latina" ng-class="{empty: !item.latina}">{{item.latina}}</td>
+        <td class="link">{{item.link}}</td>
+        <td class="price">{{item.price}}</td>
+        <td class="size">{{item.size}}</td>
+        <td class="description"><div>{{item.description}}</div></td>
+        <td class="pictures"><img ng-src="{{'https://api.backendless.com/1C32EF32-4F17-A809-FFFE-1E36794D9700/v1/files/pictures/' + item.pictures.split('|')[0]}}"></td>
+        <td class="categories">
+            <span ng-repeat="cat in item.category">
+                {{cat.title}}
+            </span>
+        </td>
+    </tr>
+</table></script>
+
+<!-- endinject -->
+
+</body>
+</html>

@@ -1,0 +1,29 @@
+
+<table>
+    <tr>
+        <th class="title">Title</th>
+        <th class="fullName">Full Name</th>
+        <th class="latina">Lat.</th>
+        <th class="link">Link</th>
+        <th class="price">Price</th>
+        <th class="size">Size</th>
+        <th class="description">Desc.</th>
+        <th class="pictures">Pics.</th>
+        <th class="categories">Cats.</th>
+    </tr>
+    <tr ng-repeat="item in products.list track by $index">
+        <td class="title">{{item.title}}</td>
+        <td class="fullName" ng-class="{empty: !item.fullName}">{{item.fullName}}</td>
+        <td class="latina" ng-class="{empty: !item.latina}">{{item.latina}}</td>
+        <td class="link">{{item.link}}</td>
+        <td class="price">{{item.price}}</td>
+        <td class="size">{{item.size}}</td>
+        <td class="description"><div>{{item.description}}</div></td>
+        <td class="pictures"><img ng-src="{{'https://api.backendless.com/1C32EF32-4F17-A809-FFFE-1E36794D9700/v1/files/pictures/' + item.pictures.split('|')[0]}}"></td>
+        <td class="categories">
+            <span ng-repeat="cat in item.category">
+                {{cat.title}}
+            </span>
+        </td>
+    </tr>
+</table>

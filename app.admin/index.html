@@ -1,0 +1,41 @@
+<!doctype html>
+<html ng-app="sls.admin" root>
+<head>
+    
+    <script>document.write('<base href="' + document.location + '" />');</script>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>admin</title>
+
+
+
+</head>
+
+<body>
+
+    <header>
+        <nav>
+            <ul>
+                <li><a ui-sref="pages" ui-sref-active="active">Pages</a></li>
+                <li><a ui-sref="products" ui-sref-active="active">Products</a></li>
+                <li><a ui-sref="categories" ui-sref-active="active">Categories</a></li>
+            </ul>
+        </nav>
+    </header>
+    <main ui-view></main>
+    <footer></footer>
+
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+<link href="admin.css" inline>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.4.7/angular.min.js"></script>
+<script src='https://cdnjs.cloudflare.com/ajax/libs/angular-ui-router/0.2.18/angular-ui-router.min.js'></script>
+<script src="admin.js" inline></script>
+
+<!-- inject:html -->
+<!-- endinject -->
+
+</body>
+</html>
