@@ -75,14 +75,18 @@ a {
   cursor: pointer; }
 
 /* FORMS */
-input {
+input,
+textarea,
+select {
   border: 1px solid #d9d9d9;
   padding: 0.3rem 0.5rem;
   font-family: Georgia, serif;
   font-size: 1rem;
   letter-spacing: 1px; }
 
-input:focus {
+input:focus,
+textarea:focus,
+select:focus {
   background: #fafafa; }
 
 input[type=search] {
@@ -130,11 +134,55 @@ body > header a:hover {
   color: #708030;
   border-bottom: 2px solid #708030; }
 
+main form {
+  margin: 2rem auto;
+  width: 100%;
+  max-width: 600px;
+  border: 0px solid red; }
+
+main form fieldset {
+  margin: 0 0 1.3rem 0; }
+
+main form h1 {
+  text-align: center;
+  font-size: 1.5rem;
+  font-family: Georgia, serif;
+  text-transform: uppercase;
+  margin: 0 0 2rem 0; }
+
+main form label {
+  display: block;
+  width: 100%; }
+
+,
+main form legend {
+  display: block;
+  margin: 0;
+  width: 100%; }
+
+main form input[type=text],
+main form textarea,
+main form select {
+  margin: 0.3rem 0 0 0;
+  width: 100%; }
+
+main form select option[selected=selected] {
+  color: white;
+  background-color: #708030; }
+
+main form textarea {
+  height: 9rem; }
+
+main form img {
+  margin: 0.3rem 50% 0 0;
+  width: 50%; }
+
 main table tr {
   border-bottom: 1px solid #f2f2f2; }
 
-main table tr:hover {
-  background: #fcfcfc; }
+main table tr:hover td {
+  background: #fafafa;
+  cursor: pointer; }
 
 main table th,
 main table td {
@@ -173,7 +221,10 @@ main table td.link {
 
 main table th.price,
 main table td.price {
-  background: #fafafa; }
+  background: #f7f7f7; }
+
+main table tr:hover td.price {
+  background: #f2f2f2; }
 
 main table td.pictures img {
   height: 40px; }
@@ -241,87 +292,23 @@ main table td.empty:before {
 
     angular
         .module('sls.admin')
-        .controller('categoriesController', categoriesController);
+        .directive('ngSize', ngSize);
 
-    categoriesController.$inject = [];
-
-    function categoriesController() {
-
-        // as controllerAs
-        /* jshint validthis: true */
-        var categories = this;
-
-        //
-
-
+    function ngSize() {
+        
+        return {
+            restrict: 'A',
+            link: function(scope, element, attr) {
+                attr.$observe('ngSize', function setSize(value) {
+                    attr.$set('size', attr.ngSize);
+                });
+            }
+        };
     }
 
+    
 })();
-(function() {
-    'use strict';
 
-    angular
-        .module('sls.admin')
-        .controller('homeController', homeController);
-
-    homeController.$inject = [];
-
-    function homeController() {
-
-        // as controllerAs
-        /* jshint validthis: true */
-        var home = this;
-
-        //
-
-
-    }
-
-})();
-(function() {
-    'use strict';
-
-    angular
-        .module('sls.admin')
-        .controller('pagesController', pagesController);
-
-    pagesController.$inject = [];
-
-    function pagesController() {
-
-        // as controllerAs
-        /* jshint validthis: true */
-        var pages = this;
-
-        //
-
-
-    }
-
-})();
-(function() {
-    'use strict';
-
-    angular
-        .module('sls.admin')
-        .controller('productsController', productsController);
-
-    productsController.$inject = ['Data'];
-
-    function productsController(Data) {
-
-        // as controllerAs
-        /* jshint validthis: true */
-        var products = this;
-
-        Data.get('products').then(function(data) {
-            products.list = data.data.data;
-        });
-
-
-    }
-
-})();
 (function() {
     'use strict';
 
@@ -399,6 +386,11 @@ main table td.empty:before {
                 url: '^/products',
                 templateUrl: 'products.html',
                 controller: 'productsController as products'
+            })
+            .state('product', {
+                url: '^/product/:link',
+                templateUrl: 'product.html',
+                controller: 'productController as product'
             })
             .state('categories', {
                 url: '^/categories',
@@ -572,7 +564,140 @@ main table td.empty:before {
     }
         
 })();
-</script>
+
+(function() {
+    'use strict';
+
+    angular
+        .module('sls.admin')
+        .controller('categoriesController', categoriesController);
+
+    categoriesController.$inject = [];
+
+    function categoriesController() {
+
+        // as controllerAs
+        /* jshint validthis: true */
+        var categories = this;
+
+        //
+
+
+    }
+
+})();
+(function() {
+    'use strict';
+
+    angular
+        .module('sls.admin')
+        .controller('homeController', homeController);
+
+    homeController.$inject = [];
+
+    function homeController() {
+
+        // as controllerAs
+        /* jshint validthis: true */
+        var home = this;
+
+        //
+
+
+    }
+
+})();
+(function() {
+    'use strict';
+
+    angular
+        .module('sls.admin')
+        .controller('pagesController', pagesController);
+
+    pagesController.$inject = [];
+
+    function pagesController() {
+
+        // as controllerAs
+        /* jshint validthis: true */
+        var pages = this;
+
+        //
+
+
+    }
+
+})();
+(function() {
+    'use strict';
+
+    angular
+        .module('sls.admin')
+        .controller('productController', productController);
+
+    productController.$inject = ['$state', 'Data'];
+
+    function productController($state, Data) {
+
+        // as controllerAs
+        /* jshint validthis: true */
+        var product = this;
+
+        product.currentLink = $state.params.link;
+
+        Data.get('products').then(function(data) {
+            product.list = data.data.data;
+        });
+
+        Data.get('categories').then(function(data) {
+            product.allCategories = data.data.data;
+        });
+
+        product.categoryMatch = function(currentLink, all) {
+
+            for (var i = 0; i < all.length; i++) {
+                if(all[i].link === currentLink) return true;
+            }
+        };
+
+        product.itemConsole = function(item) {
+
+            for (var i = 0; i < item.category.length; i++) {
+                item.category[i] = angular.fromJson(item.category[i]);
+            }
+
+            console.log(item);
+        };
+
+    }
+
+})();
+(function() {
+    'use strict';
+
+    angular
+        .module('sls.admin')
+        .controller('productsController', productsController);
+
+    productsController.$inject = ['$state', 'Data'];
+
+    function productsController($state, Data) {
+
+        // as controllerAs
+        /* jshint validthis: true */
+        var products = this;
+
+        Data.get('products').then(function(data) {
+            products.list = data.data.data;
+        });
+
+        products.goTo = function(link) {
+            $state.go('product', {link: link});
+        };
+
+    }
+
+})();</script>
 
 <!-- inject:html -->
 <script type="text/ng-template" id="footer.html"><!-- footer --></script>
@@ -582,6 +707,69 @@ main table td.empty:before {
 <script type="text/ng-template" id="home.html"><a ui-sref="fg">home</a></script>
 
 <script type="text/ng-template" id="pages.html">pages</script>
+
+<script type="text/ng-template" id="product.html">
+<form ng-repeat="item in product.list track by $index" ng-if="item.link === product.currentLink">
+
+    <h1>{{item.title || 'Empty'}}</h1>
+
+    <fieldset>
+        <label>
+            Title
+            <input type="text" ng-model="item.title">
+        </label>
+    </fieldset>
+    <fieldset>
+        <label>
+            Full Name
+            <input type="text" ng-model="item.fullName">
+        </label>
+    </fieldset>
+    <fieldset>
+        <label>
+            Latina
+            <input type="text" ng-model="item.latina">
+        </label>
+    </fieldset>
+    <fieldset>
+        <label>
+            Link
+            <input type="text" ng-model="item.link">
+        </label>
+    </fieldset>
+    <fieldset>
+        <label>
+            Price
+            <input type="text" ng-model="item.price">
+        </label>
+    </fieldset>
+    <fieldset>
+        <label>
+            Size
+            <input type="text" ng-model="item.size">
+        </label>
+    </fieldset>
+    <fieldset>
+        <label>
+            Description
+            <textarea ng-model="item.description">{{item.description}}</textarea>
+        </label>
+    </fieldset>
+    <fieldset>
+        <legend>Categories</legend>
+        
+
+            <select multiple ng-size="{{product.allCategories.length}}" ng-model="item.category" ng-click="product.itemConsole(item)">
+                <option ng-repeat="cat in product.allCategories" ng-selected="product.categoryMatch(cat.link,item.category)" ng-model="item.category[$index]" ng-bind="cat.title">{{cat}}</option>
+            </select>
+    </fieldset>
+    <fieldset>
+        <label>
+            Pictures
+            <img ng-src="{{'https://api.backendless.com/1C32EF32-4F17-A809-FFFE-1E36794D9700/v1/files/pictures/' + item.pictures.split('|')[0]}}">
+        </label>
+    </fieldset>
+</form></script>
 
 <script type="text/ng-template" id="products.html">
 <table>
@@ -596,7 +784,7 @@ main table td.empty:before {
         <th class="pictures">Pics.</th>
         <th class="categories">Cats.</th>
     </tr>
-    <tr ng-repeat="item in products.list track by $index">
+    <tr ng-repeat="item in products.list track by $index" ng-click="products.goTo(item.link)">
         <td class="title">{{item.title}}</td>
         <td class="fullName" ng-class="{empty: !item.fullName}">{{item.fullName}}</td>
         <td class="latina" ng-class="{empty: !item.latina}">{{item.latina}}</td>

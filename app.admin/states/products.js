@@ -5,9 +5,9 @@
         .module('sls.admin')
         .controller('productsController', productsController);
 
-    productsController.$inject = ['Data'];
+    productsController.$inject = ['$state', 'Data'];
 
-    function productsController(Data) {
+    function productsController($state, Data) {
 
         // as controllerAs
         /* jshint validthis: true */
@@ -17,6 +17,9 @@
             products.list = data.data.data;
         });
 
+        products.goTo = function(link) {
+            $state.go('product', {link: link});
+        };
 
     }
 

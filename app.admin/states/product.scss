@@ -1,0 +1,45 @@
+main form {
+    margin: 2rem auto;
+    width: 100%;
+    max-width: 600px;
+    border: 0px solid red;
+}
+main form fieldset {
+    margin: 0 0 1.3rem 0;
+}
+main form h1 {
+    text-align: center;
+    font-size: 1.5rem;
+    font-family: $serif;
+    text-transform: uppercase;
+    margin: 0 0 2rem 0;
+}
+
+main form label {
+    display: block;
+    width: 100%;
+},
+main form legend {
+    display: block;
+    margin: 0;
+    width: 100%;
+}
+
+main form input[type=text],
+main form textarea,
+main form select {
+    margin: 0.3rem 0 0 0;
+    width: 100%;
+}
+main form select option[selected=selected] {
+    color: white;
+    background-color: $green;
+}
+main form textarea {
+    height: 9rem;
+}
+
+main form img {
+    margin: 0.3rem 50% 0 0;
+    width: 50%;
+}

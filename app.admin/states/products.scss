@@ -4,8 +4,9 @@ main table {
 main table tr {
     border-bottom: 1px solid lighten( black, 95% );
 }
-main table tr:hover {
-    background: lighten( black, 99% );
+main table tr:hover td {
+    background: lighten( black, 98% );
+    cursor: pointer;
 }
 
 main table th,
@@ -49,7 +50,10 @@ main table td.link {
 
 main table th.price,
 main table td.price {
-    background: lighten( black, 98% );
+    background: lighten( black, 97% );
+}
+main table tr:hover td.price {
+    background: lighten( black, 95% );
 }
 main table td.pictures img {
     height: 40px;

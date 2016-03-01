@@ -29,6 +29,11 @@
                 templateUrl: 'products.html',
                 controller: 'productsController as products'
             })
+            .state('product', {
+                url: '^/product/:link',
+                templateUrl: 'product.html',
+                controller: 'productController as product'
+            })
             .state('categories', {
                 url: '^/categories',
                 templateUrl: 'categories.html',
