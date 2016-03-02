@@ -13,7 +13,10 @@
         /* jshint validthis: true */
         var products = this;
 
-        Data.get('products').then(function(data) {
+        products.selected = $state.params.link;
+        console.log(products.selected);
+
+        Data.getTable('products').then(function(data) {
             products.list = data.data.data;
         });
 

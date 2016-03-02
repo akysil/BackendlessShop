@@ -25,7 +25,7 @@
                 controller: 'pagesController as pages'
             })
             .state('products', {
-                url: '^/products',
+                url: '^/products/:link',
                 templateUrl: 'products.html',
                 controller: 'productsController as products'
             })

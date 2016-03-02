@@ -1,62 +1,70 @@
 
-<form ng-repeat="item in product.list track by $index" ng-if="item.link === product.currentLink">
+<form>
 
-    <h1>{{item.title || 'Empty'}}</h1>
+    <h1>
+        {{product.item.title || 'Empty'}}
+        <i ng-if="product.item.objectId" ng-click="product.delete(product.item)">del.</i>
+    </h1>
 
     <fieldset>
         <label>
             Title
-            <input type="text" ng-model="item.title">
+            <input type="text" ng-model="product.item.title">
         </label>
     </fieldset>
     <fieldset>
         <label>
             Full Name
-            <input type="text" ng-model="item.fullName">
+            <input type="text" ng-model="product.item.fullName">
         </label>
     </fieldset>
     <fieldset>
         <label>
             Latina
-            <input type="text" ng-model="item.latina">
+            <input type="text" ng-model="product.item.latina">
         </label>
     </fieldset>
     <fieldset>
         <label>
             Link
-            <input type="text" ng-model="item.link">
+            <input type="text" ng-model="product.item.link">
         </label>
     </fieldset>
     <fieldset>
         <label>
             Price
-            <input type="text" ng-model="item.price">
+            <input type="text" ng-model="product.item.price">
         </label>
     </fieldset>
     <fieldset>
         <label>
             Size
-            <input type="text" ng-model="item.size">
+            <input type="text" ng-model="product.item.size">
         </label>
     </fieldset>
     <fieldset>
         <label>
             Description
-            <textarea ng-model="item.description">{{item.description}}</textarea>
+            <textarea ng-model="product.item.description">{{product.item.description}}</textarea>
         </label>
     </fieldset>
     <fieldset>
         <legend>Categories</legend>
-        
-
-            <select multiple ng-size="{{product.allCategories.length}}" ng-model="item.category" ng-click="product.itemConsole(item)">
-                <option ng-repeat="cat in product.allCategories" ng-selected="product.categoryMatch(cat.link,item.category)" ng-model="item.category[$index]" ng-bind="cat.title">{{cat}}</option>
+            <select multiple ng-size="{{product.allCategories.length}}" ng-model="product.item.category">
+                <option ng-repeat="cat in product.allCategories" ng-selected="product.categoryMatch(cat.link,product.item.category)" ng-model="product.item.category[$index]" ng-bind="cat.title">{{cat}}</option>
             </select>
     </fieldset>
-    <fieldset>
-        <label>
-            Pictures
-            <img ng-src="{{'https://api.backendless.com/1C32EF32-4F17-A809-FFFE-1E36794D9700/v1/files/pictures/' + item.pictures.split('|')[0]}}">
-        </label>
+    <fieldset class="pictures">
+        <legend>Pictures</legend>
+        <ul>
+            <li ng-repeat="pic in product.allPictures">
+                <label ng-class="{checked: product.item.pictures === pic.name}">
+                    <input type="radio" ng-model="product.item.pictures" ng-value="pic.name" ng-checked="product.item.pictures.split('|')[0] === pic.name">
+                    <img ng-src="{{pic.publicUrl}}" alt="{{pic.name}}">
+                </label>
+            </li>
+        </ul>
     </fieldset>
+
+    <button ng-click="product.submit(product.item)">Submit</button>
 </form>

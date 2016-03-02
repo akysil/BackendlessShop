@@ -11,7 +11,7 @@
         <th class="pictures">Pics.</th>
         <th class="categories">Cats.</th>
     </tr>
-    <tr ng-repeat="item in products.list track by $index" ng-click="products.goTo(item.link)">
+    <tr ng-repeat="item in products.list track by $index" ng-click="products.goTo(item.link)" ng-class="{selected: products.selected === item.link}">
         <td class="title">{{item.title}}</td>
         <td class="fullName" ng-class="{empty: !item.fullName}">{{item.fullName}}</td>
         <td class="latina" ng-class="{empty: !item.latina}">{{item.latina}}</td>

@@ -77,7 +77,8 @@ a {
 /* FORMS */
 input,
 textarea,
-select {
+select,
+button {
   border: 1px solid #d9d9d9;
   padding: 0.3rem 0.5rem;
   font-family: Georgia, serif;
@@ -135,7 +136,7 @@ body > header a:hover {
   border-bottom: 2px solid #708030; }
 
 main form {
-  margin: 2rem auto;
+  margin: 2rem auto 5rem auto;
   width: 100%;
   max-width: 600px;
   border: 0px solid red; }
@@ -150,20 +151,29 @@ main form h1 {
   text-transform: uppercase;
   margin: 0 0 2rem 0; }
 
-main form label {
-  display: block;
-  width: 100%; }
+main form h1 i {
+  font-size: 0.8rem;
+  text-transform: lowercase;
+  color: red; }
 
-,
+main form h1 i:hover {
+  text-decoration: underline;
+  cursor: pointer; }
+
+main form label,
 main form legend {
   display: block;
   margin: 0;
-  width: 100%; }
+  width: 100%;
+  font-size: 1.2rem;
+  font-family: Georgia, serif;
+  color: #90a53e; }
 
 main form input[type=text],
 main form textarea,
-main form select {
-  margin: 0.3rem 0 0 0;
+main form select,
+main form ul {
+  margin: 0.5rem 0 0 0;
   width: 100%; }
 
 main form select option[selected=selected] {
@@ -173,12 +183,33 @@ main form select option[selected=selected] {
 main form textarea {
   height: 9rem; }
 
-main form img {
-  margin: 0.3rem 50% 0 0;
-  width: 50%; }
+main form fieldset.pictures li,
+main form fieldset.pictures label {
+  display: inline-block;
+  height: 80px; }
+
+main form fieldset.pictures input {
+  display: none; }
+
+main form fieldset.pictures img {
+  height: 80px;
+  border: 5px solid transparent; }
+
+main form fieldset.pictures label.checked img {
+  background-color: #bdce7b;
+  opacity: 0.5; }
+
+main form button {
+  background-color: #9c67d1;
+  color: white;
+  width: 10rem;
+  margin: 0 0 0 calc(100% - 10rem); }
 
 main table tr {
   border-bottom: 1px solid #f2f2f2; }
+
+main table tr.selected td {
+  background: whitesmoke; }
 
 main table tr:hover td {
   background: #fafafa;
@@ -383,7 +414,7 @@ main table td.empty:before {
                 controller: 'pagesController as pages'
             })
             .state('products', {
-                url: '^/products',
+                url: '^/products/:link',
                 templateUrl: 'products.html',
                 controller: 'productsController as products'
             })
@@ -449,11 +480,13 @@ main table td.empty:before {
     
     function Data($http, SETTINGS) {
 
-        var baseUrl = SETTINGS.API_DATA;
+       var dataBase = SETTINGS.API_DATA;
+      var filesBase = SETTINGS.API_FILES;
 
         var methods = {
             //get: get,
-            get: function(table) { return $http.get(baseUrl + table); },
+            getTable: function(table) { return $http.get(dataBase + table); },
+            getFiles: function(folder) { return $http.get(filesBase + folder); },
             add: add,
             update: update,
             remove: remove
@@ -470,7 +503,7 @@ main table td.empty:before {
             var config = {
                 // headers in credentials
                 method: 'POST',
-                url: baseUrl + table,
+                url: dataBase + table,
                 data: data
             };
 
@@ -479,14 +512,12 @@ main table td.empty:before {
 
         function update(data, table, objectId) {
             
-            angular.extend(data, {
-               'objectId': objectId
-            });
+            //angular.extend(data, { 'objectId': objectId });
             
             var config = {
                 // headers in credentials
                 method: 'PUT',
-                url: baseUrl + table + '/' + objectId,
+                url: dataBase + table + '/' + objectId,
                 data: data
             };
 
@@ -499,7 +530,7 @@ main table td.empty:before {
             var config = {
                 // headers in credentials
                 method: 'DELETE',
-                url: baseUrl + table + '/' + objectId
+                url: dataBase + table + '/' + objectId
             };
 
             return $http(config);
@@ -548,7 +579,7 @@ main table td.empty:before {
                    CACHE_TIMEOUT: 86400000, // 1 day in milliseconds
                    get API_USER() { return this.API_BASE + this.VERSION + '/users/'; },
                    get API_DATA() { return this.API_BASE + this.VERSION + '/data/'; },
-                  get BASIC_SRC() { return ['pages', 'products']; }
+                  get API_FILES() { return this.API_BASE + this.VERSION + '/files/'; },
                     
                     //get TOKEN() { return token; },
                     //set TOKEN(data) { token = data; }
@@ -645,28 +676,57 @@ main table td.empty:before {
 
         product.currentLink = $state.params.link;
 
-        Data.get('products').then(function(data) {
-            product.list = data.data.data;
-        });
+        if(product.currentLink) {
+            Data.getTable('products').then(function(data) {
+                var list = data.data.data;
+                for (var i = 0; i < list.length; i++) {
+                    if(list[i].link === product.currentLink)
+                        product.item = list[i];
+                }
+            });
+        }
+            
 
-        Data.get('categories').then(function(data) {
+        Data.getTable('categories').then(function(data) {
             product.allCategories = data.data.data;
         });
 
-        product.categoryMatch = function(currentLink, all) {
+        Data.getFiles('pictures').then(function(data) {
+            product.allPictures = data.data.data;
+        });
 
+        product.categoryMatch = function(currentLink, all) {
+            if(!all) return;
             for (var i = 0; i < all.length; i++) {
                 if(all[i].link === currentLink) return true;
             }
         };
 
-        product.itemConsole = function(item) {
-
+        product.submit = function(item) {
+            
             for (var i = 0; i < item.category.length; i++) {
                 item.category[i] = angular.fromJson(item.category[i]);
             }
 
-            console.log(item);
+            if(item.objectId) {
+                Data.update(item, 'products', item.objectId).then(function(data) {
+                    alert(data.statusText);
+                    $state.go('products', {link:item.link});
+                });
+            } else {
+                Data.add(item, 'products').then(function(data) {
+                    alert(data.statusText);
+                });
+            }
+                
+        };
+
+        product.delete = function(item) {
+
+            Data.remove('products', item.objectId).then(function(data) {
+                alert(data.statusText);
+            });
+                
         };
 
     }
@@ -687,7 +747,10 @@ main table td.empty:before {
         /* jshint validthis: true */
         var products = this;
 
-        Data.get('products').then(function(data) {
+        products.selected = $state.params.link;
+        console.log(products.selected);
+
+        Data.getTable('products').then(function(data) {
             products.list = data.data.data;
         });
 
@@ -709,66 +772,74 @@ main table td.empty:before {
 <script type="text/ng-template" id="pages.html">pages</script>
 
 <script type="text/ng-template" id="product.html">
-<form ng-repeat="item in product.list track by $index" ng-if="item.link === product.currentLink">
+<form>
 
-    <h1>{{item.title || 'Empty'}}</h1>
+    <h1>
+        {{product.item.title || 'Empty'}}
+        <i ng-if="product.item.objectId" ng-click="product.delete(product.item)">del.</i>
+    </h1>
 
     <fieldset>
         <label>
             Title
-            <input type="text" ng-model="item.title">
+            <input type="text" ng-model="product.item.title">
         </label>
     </fieldset>
     <fieldset>
         <label>
             Full Name
-            <input type="text" ng-model="item.fullName">
+            <input type="text" ng-model="product.item.fullName">
         </label>
     </fieldset>
     <fieldset>
         <label>
             Latina
-            <input type="text" ng-model="item.latina">
+            <input type="text" ng-model="product.item.latina">
         </label>
     </fieldset>
     <fieldset>
         <label>
             Link
-            <input type="text" ng-model="item.link">
+            <input type="text" ng-model="product.item.link">
         </label>
     </fieldset>
     <fieldset>
         <label>
             Price
-            <input type="text" ng-model="item.price">
+            <input type="text" ng-model="product.item.price">
         </label>
     </fieldset>
     <fieldset>
         <label>
             Size
-            <input type="text" ng-model="item.size">
+            <input type="text" ng-model="product.item.size">
         </label>
     </fieldset>
     <fieldset>
         <label>
             Description
-            <textarea ng-model="item.description">{{item.description}}</textarea>
+            <textarea ng-model="product.item.description">{{product.item.description}}</textarea>
         </label>
     </fieldset>
     <fieldset>
         <legend>Categories</legend>
-        
-
-            <select multiple ng-size="{{product.allCategories.length}}" ng-model="item.category" ng-click="product.itemConsole(item)">
-                <option ng-repeat="cat in product.allCategories" ng-selected="product.categoryMatch(cat.link,item.category)" ng-model="item.category[$index]" ng-bind="cat.title">{{cat}}</option>
+            <select multiple ng-size="{{product.allCategories.length}}" ng-model="product.item.category">
+                <option ng-repeat="cat in product.allCategories" ng-selected="product.categoryMatch(cat.link,product.item.category)" ng-model="product.item.category[$index]" ng-bind="cat.title">{{cat}}</option>
             </select>
     </fieldset>
-    <fieldset>
-        <label>
-            Pictures
-            <img ng-src="{{'https://api.backendless.com/1C32EF32-4F17-A809-FFFE-1E36794D9700/v1/files/pictures/' + item.pictures.split('|')[0]}}">
-        </label>
+    <fieldset class="pictures">
+        <legend>Pictures</legend>
+        <ul>
+            <li ng-repeat="pic in product.allPictures">
+                <label ng-class="{checked: product.item.pictures === pic.name}">
+                    <input type="radio" ng-model="product.item.pictures" ng-value="pic.name" ng-checked="product.item.pictures.split('|')[0] === pic.name">
+                    <img ng-src="{{pic.publicUrl}}" alt="{{pic.name}}">
+                </label>
+            </li>
+        </ul>
     </fieldset>
+
+    <button ng-click="product.submit(product.item)">Submit</button>
 </form></script>
 
 <script type="text/ng-template" id="products.html">
@@ -784,7 +855,7 @@ main table td.empty:before {
         <th class="pictures">Pics.</th>
         <th class="categories">Cats.</th>
     </tr>
-    <tr ng-repeat="item in products.list track by $index" ng-click="products.goTo(item.link)">
+    <tr ng-repeat="item in products.list track by $index" ng-click="products.goTo(item.link)" ng-class="{selected: products.selected === item.link}">
         <td class="title">{{item.title}}</td>
         <td class="fullName" ng-class="{empty: !item.fullName}">{{item.fullName}}</td>
         <td class="latina" ng-class="{empty: !item.latina}">{{item.latina}}</td>

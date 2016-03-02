@@ -19,7 +19,7 @@
                    CACHE_TIMEOUT: 86400000, // 1 day in milliseconds
                    get API_USER() { return this.API_BASE + this.VERSION + '/users/'; },
                    get API_DATA() { return this.API_BASE + this.VERSION + '/data/'; },
-                  get BASIC_SRC() { return ['pages', 'products']; }
+                  get API_FILES() { return this.API_BASE + this.VERSION + '/files/'; },
                     
                     //get TOKEN() { return token; },
                     //set TOKEN(data) { token = data; }

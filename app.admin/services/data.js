@@ -9,11 +9,13 @@
     
     function Data($http, SETTINGS) {
 
-        var baseUrl = SETTINGS.API_DATA;
+       var dataBase = SETTINGS.API_DATA;
+      var filesBase = SETTINGS.API_FILES;
 
         var methods = {
             //get: get,
-            get: function(table) { return $http.get(baseUrl + table); },
+            getTable: function(table) { return $http.get(dataBase + table); },
+            getFiles: function(folder) { return $http.get(filesBase + folder); },
             add: add,
             update: update,
             remove: remove
@@ -30,7 +32,7 @@
             var config = {
                 // headers in credentials
                 method: 'POST',
-                url: baseUrl + table,
+                url: dataBase + table,
                 data: data
             };
 
@@ -39,14 +41,12 @@
 
         function update(data, table, objectId) {
             
-            angular.extend(data, {
-               'objectId': objectId
-            });
+            //angular.extend(data, { 'objectId': objectId });
             
             var config = {
                 // headers in credentials
                 method: 'PUT',
-                url: baseUrl + table + '/' + objectId,
+                url: dataBase + table + '/' + objectId,
                 data: data
             };
 
@@ -59,7 +59,7 @@
             var config = {
                 // headers in credentials
                 method: 'DELETE',
-                url: baseUrl + table + '/' + objectId
+                url: dataBase + table + '/' + objectId
             };
 
             return $http(config);

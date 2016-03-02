@@ -4,6 +4,9 @@ main table {
 main table tr {
     border-bottom: 1px solid lighten( black, 95% );
 }
+main table tr.selected td {
+    background: lighten( black, 96% );
+}
 main table tr:hover td {
     background: lighten( black, 98% );
     cursor: pointer;
